@@ -2,24 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.scss";
-
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./_reducers/index.js";
-import { getToken } from "./_actions/postTokenAction";
-import { getUserProfile } from "./_actions/userProfileAction";
-
-const store = configureStore({
-  reducer: rootReducer,
-  devTools: true,
-});
-
-store.dispatch(getToken());
-store.dispatch(getUserProfile());
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    <BrowserRouter>
+      {/* <AuthProvider> */}
+      <Routes>
+        <Route path="/*" element={<App />} />
+      </Routes>
+      {/* </AuthProvider> */}
+    </BrowserRouter>
+  </React.StrictMode>,
   document.getElementById("root")
 );
